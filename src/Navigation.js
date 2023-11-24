@@ -8,12 +8,24 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Icons
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-
+import { Ionicons } from '@expo/vector-icons';
 
 // Screens
 import Home from './screens/Home'
 import Favorite from './screens/favorite'
 import Profile from './screens/profile';
+import AddContact from './screens/AddContact';
+import Setting from './screens/Setting';
+import { StyleSheet } from 'react-native';
+
+
+// Styles
+const styles = StyleSheet.create({
+    home: {
+        color: 'red'
+    }
+});
+
 
 const Tab = createBottomTabNavigator();
 
@@ -30,16 +42,36 @@ const Navigation = () => {
                     component={Home}
                     options={{
                         tabBarIcon: () => (
-                            <FontAwesome name="home" size={24} color="black" />
+                            <FontAwesome
+                                name="home"
+                                size={24}
+                                color="black"
+                            />
                         )
                     }}
+
                 />
                 <Tab.Screen
                     name="Favorite"
                     component={Favorite}
                     options={{
                         tabBarIcon: () => (
-                            <MaterialIcons name="favorite" size={24} color="black" />
+                            <MaterialIcons
+                                name="favorite"
+                                size={24}
+                                color="black" />
+                        )
+                    }}
+                />
+                <Tab.Screen
+                    name="AddContact"
+                    component={AddContact}
+                    options={{
+                        tabBarIcon: () => (
+                            <Ionicons
+                                name="add-circle-sharp"
+                                size={24}
+                                color="black" />
                         )
                     }}
                 />
@@ -48,7 +80,22 @@ const Navigation = () => {
                     component={Profile}
                     options={{
                         tabBarIcon: () => (
-                            <FontAwesome name="user" size={24} color="black" />
+                            <FontAwesome
+                                name="user"
+                                size={24}
+                                color="black" />
+                        )
+                    }}
+                />
+                <Tab.Screen
+                    name="Setting"
+                    component={Setting}
+                    options={{
+                        tabBarIcon: () => (
+                            <Ionicons
+                                name="settings"
+                                size={24}
+                                color="black" />
                         )
                     }}
                 />

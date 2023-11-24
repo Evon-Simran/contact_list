@@ -1,0 +1,31 @@
+{
+    "contacts": [
+      {
+        "id": "1",
+        "age": 20,
+        "name": "Chaney Swanson",
+        "gender": "male",
+        "company": "MEGALL",
+        "email": "chaneyswanson@megall.com",
+        "photo": "https://randomuser.me/api/portraits/men/33.jpg"
+      },
+      {
+        "id": "2",
+        "age": 23,
+        "name": "Chambers Padilla",
+        "gender": "male",
+        "company": "QUAILCOM",
+        "email": "chamberspadilla@quailcom.com",
+        "photo": "https://randomuser.me/api/portraits/men/50.jpg"
+      },
+      {
+        "id": "3",
+        "age": 31,
+        "name": "Shawna Mathis",
+        "gender": "female",
+        "company": "KANGLE",
+        "email": "shawnamathis@kangle.com",
+        "photo": "https://randomuser.me/api/portraits/men/31.jpg"
+      }
+    ]
+  }

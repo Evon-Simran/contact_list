@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
-import ContactList from '../../utilis/mock/contactList.json'
-
+import SortedContactList from '../../utilis/sortedList'
 
 
 // Styles
@@ -22,7 +21,7 @@ const Home = () => {
         <View>
             <ScrollView>
                 {
-                    ContactList.contacts.map(
+                    SortedContactList.map(
                         item => {
                             return (
                                 <TouchableOpacity>
