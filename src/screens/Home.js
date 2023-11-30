@@ -1,10 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
-import SortedContactList from '../../utilis/sortedList'
+import { StyleSheet,View } from 'react-native';
+import GetList from '../../utilis/getList';
 
 
 // Styles
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({  
     profileIcon: {
         width: 50,
         height: 50,
@@ -19,40 +19,7 @@ const styles = StyleSheet.create({
 const Home = () => {
     return (
         <View>
-            <ScrollView>
-                {
-                    SortedContactList.map(
-                        item => {
-                            return (
-                                <TouchableOpacity>
-                                    <View key={item.id}
-                                        style={
-                                            {
-                                                width: '100%',
-                                                height: 60,
-                                                flexDirection: 'row',
-                                                alignItems: 'center',
-                                                paddingLeft: 20
-                                            }
-                                        }
-                                    >
-                                        <Image
-                                            style={styles.profileIcon}
-                                            source={{
-                                                uri: item.photo,
-                                            }}
-                                        />
-                                        <Text
-                                            style={styles.nameSize}
-                                        > {item.name} </Text>
-                                    </View>
-                                </TouchableOpacity>
-
-                            )
-                        }
-                    )
-                }
-            </ScrollView>
+           <GetList />
         </View>
     )
 }

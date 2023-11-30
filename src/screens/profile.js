@@ -4,6 +4,9 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 
+// Data
+import GetList from '../../utilis/getList'
+
 
 const styles = StyleSheet.create({
   container: {
@@ -18,16 +21,12 @@ const styles = StyleSheet.create({
     height: 58,
   },
 });
-const Profile = ({navigation}) => {
+const Profile = ({ navigation }) => {
   return (
     <View>
-      <Ionicons 
-      name="add-circle-sharp"
-       size={24}
-       color="black"
-       onPress={ () => navigation.navigate('Home'
-      )}
-       />
+      <Text>
+        list
+      </Text>
     </View>
   )
 }

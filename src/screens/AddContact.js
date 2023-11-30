@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { Button, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native'
-
+import { collection, doc, setDoc, addDoc } from 'firebase/firestore'
+import { app } from '../../utilis/firebase'
 
 // Contact List
 import List from '../../utilis/mock/favoriteList.json'
 import { Text } from 'react-native';
-
+import { getFirestore } from "firebase/firestore";
+import { onValue, ref, getDatabase } from 'firebase/database'
 const styles = StyleSheet.create({
     input: {
         height: 40,
@@ -13,7 +15,7 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 1,
         marginTop: 3,
-        marginBottom :10
+        marginBottom: 10
     },
     container: {
         paddingLeft: 20,
@@ -25,12 +27,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: 'green',
         padding: 10,
-       alignItems : 'center'
+        alignItems: 'center'
     }
 });
 
 const ContactList = List.contacts;
-
+const db = getFirestore(app);
 const AddContact = () => {
     const [contacts, setContacts] = useState(ContactList);
     const [newContact, setNewContact] = useState({
@@ -45,22 +47,39 @@ const AddContact = () => {
 
     const handleInputChange = (fieldName, value) => {
         setNewContact({ ...newContact, [fieldName]: value });
+
+
     }
 
-    const addNewContact = (contact) => {
-        setContacts([...contacts, { id: contacts.length + 1, ...contact }]);
-        console.log(contacts);
-        // setNewContact(
-        //     {
-        //         age: '',
-        //         name: '',
-        //         gender: '',
-        //         company: '',
-        //         email: '',
-        //         photo: "https://randomuser.me/api/portraits/men/33.jpg"
-        //     }
-        // )
-    }
+    const addNewContact = async (contact) => {
+
+        try {
+            // Add the new contact to Firestore
+            // const docRef = await addDoc(collection(db, "list"), contact);
+            const docRef = await setDoc(doc(db, "lists", "0"), {
+                name: "dummy"
+            }).then(() => {
+                console.log('Data Submitted');
+                console.log(contact);
+            }).catch((error) => {
+                console.log(error);
+            });
+            //console.log('Data Submitted with ID:', docRef.id);
+            console.log(contact);
+            // Reset the form fields
+            setNewContact({
+                age: '',
+                name: '',
+                gender: '',
+                company: '',
+                email: '',
+                photo: "https://randomuser.me/api/portraits/men/33.jpg"
+            });
+        } catch (error) {
+            console.error('Error adding contact:', error);
+        }
+    };
+
 
     return (
         <View style={styles.container}>
