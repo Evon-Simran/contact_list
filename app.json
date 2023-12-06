@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "mycontact",
     "name": "contact_list",
     "slug": "contact_list",
     "version": "1.0.0",

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Image, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import { View } from 'react-native'
+import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 import Modal from "react-native-modal";
@@ -10,8 +9,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Card } from '@rneui/themed';
 import { FontAwesome } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
-import * as Clipboard from 'expo-clipboard';
-const ProfileCard = () => {
+
+
+const SharedProfile = () => {
     const navigation = useNavigation();
     const [iconColor, setIcon] = useState('hearto');
     const [isFav, setFav] = useState(false);
@@ -22,8 +22,6 @@ const ProfileCard = () => {
     const route = useRoute();
     const id = route.params;
     const userId = id.itemId;
-    const url = `exp://172.16.1.94:8081/--/mycontact://app/profile/${userId}`
-
 
     const fetchContactData = () => {
         try {
@@ -42,31 +40,6 @@ const ProfileCard = () => {
         fetchContactData();
     }, [userId]);
 
-    const updateData = (itemId, favorite) => {
-        const db = getDatabase(app);
-        const dbRef = ref(db, 'contacts');
-
-        onValue(dbRef, async (snapshot) => {
-            const data = snapshot.val();
-            let userKey = null;
-            Object.keys(data).forEach(key => {
-                if (data[key].id === itemId) {
-                    userKey = key;
-                }
-            });
-
-            if (userKey) {
-                const userRef = child(dbRef, userKey);
-                update(userRef, { fav: favorite });
-                console.log('Contact updated successfully!');
-                userKey = null;
-            }
-            else {
-                console.log('User not found with ID:', userId);
-            }
-        });
-
-    }
 
     const handleIconClick = () => {
         const newIcon = iconColor === 'hearto' ? 'heart' : 'hearto';
@@ -77,25 +50,13 @@ const ProfileCard = () => {
         updateData(userId, fav);
     };
 
-
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
 
-    const handleLinking = async () => {
-        Clipboard.setStringAsync(url);
-        // Linking.openURL(url);
-        alert('Copied to Clipboard!');
-        // console.log(url);
-    }
     return (
         <View>
             <Card containerStyle={{}} wrapperStyle={{}}>
-                <View style={styles.topBar}>
-                    <TouchableOpacity onPress={handleIconClick}>
-                        <AntDesign name={iconColor} size={24} color="pink" />
-                    </TouchableOpacity>
-                </View>
                 <Card.Title h4>{contact.name}</Card.Title>
                 <Card.Divider />
                 <View
@@ -114,7 +75,7 @@ const ProfileCard = () => {
                     />
                     <Text>{contact.email}</Text>
                 </View>
-
+                {/* 
                 <TouchableOpacity onPress={handleLinking}>
                     <LinearGradient
                         colors={['#4c669f', '#3b5998', '#192f6a']}
@@ -124,7 +85,7 @@ const ProfileCard = () => {
                         <Text style={styles.buttonText} >Share Profile</Text>
                         <FontAwesome name="share-alt" size={15} color="white" />
                     </LinearGradient>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </Card>
 
             <View>
@@ -146,13 +107,11 @@ const ProfileCard = () => {
             </View>
 
         </View>
-
     )
 }
 
-export default ProfileCard
+export default SharedProfile
 
-// Styles
 const styles = StyleSheet.create({
     topBar: {
         display: "flex",

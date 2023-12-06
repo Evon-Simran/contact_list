@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 50
     },
-    nameSize: {
+    nameSize: {  
         fontSize: 20,
     }
 });
@@ -49,7 +49,7 @@ const GetList = () => {
     });
 
     const handleClick = (itemId,item) => {
-        navigation.navigate('ProfileCard', { itemId, item});
+        navigation.navigate('Profile', { itemId, item});
     }
     return (
         <View>

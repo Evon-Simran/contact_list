@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React, { useEffect } from 'react'
+import * as Linking from 'expo-linking';
 
 // Navigation
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
@@ -31,6 +31,7 @@ import {
     ProfileCard
 } from './screens/Index'
 import { NativeScreenContainer } from 'react-native-screens';
+import SharedProfile from './screens/SharedProfile';
 // Styles
 const styles = StyleSheet.create({
     home: {
@@ -41,8 +42,11 @@ const styles = StyleSheet.create({
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+const prefix = Linking.createURL('mycontact://app');
+
 
 const HomeStack = () => {
+    // useEffect()
     return (
         <Tab.Navigator screenOptions={{
             tabBarShowLabel: false,
@@ -101,7 +105,7 @@ const HomeStack = () => {
                 })}
             />
             <Tab.Screen
-                name="Profile"
+                name="Account"
                 component={Profile}
                 options={({ navigation }) => ({
                     headerLeft: () => (
@@ -129,7 +133,7 @@ const HomeStack = () => {
                             name="md-arrow-back"
                             size={24}
                             color="black"
-                            onPress={() => navigation.goBack()}
+                            onPress={() => navigation.goBack().setParams({})}
                         />
                     ),
                     tabBarIcon: () => (
@@ -146,15 +150,35 @@ const HomeStack = () => {
 
 
 const Navigation = () => {
+    const deepLinking = {
+        prefixes: [prefix],
+        config: {
+            screens: {
+                Profile : {
+                    path : "profile/:itemId",
+                    parse: {
+                        itemId:(itemId) => `${itemId}`
+                    }
+                },
+                SharedProfile : {
+                    path : "shared-profile/:itemId",
+                    parse: {
+                        itemId:(itemId) => `${itemId}`
+                    }
+                }
+            }
+        }
+    };
     return (
-        <NavigationContainer >
+        <NavigationContainer linking={deepLinking}>
             <Stack.Navigator>
                 <Stack.Screen
                     name="HomeStack"
                     component={HomeStack}
                     options={{ headerShown: false }}
                 />
-                <Stack.Screen name="ProfileCard" component={ProfileCard} />
+                <Stack.Screen name="Profile" component={ProfileCard} />
+                <Stack.Screen name="SharedProfile" component={SharedProfile} />
             </Stack.Navigator>
         </NavigationContainer>
     )
